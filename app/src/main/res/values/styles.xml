@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Header">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Subheader">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white_70</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Theme.Button.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/dark_button</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.Button.Darkest" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/darkest_button</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

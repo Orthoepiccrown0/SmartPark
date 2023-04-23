@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">PlateFinder</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="profile">Profile</string>
+    <string name="riepilogo_delle_tue_attivit">Riepilogo delle tue attività</string>
+    <string name="gestisci_le_tue_autovetture">Gestisci le tue autovetture</string>
+    <string name="visualizza_i_tuoi_movimenti">Visualizza i tuoi movimenti</string>
+    <string name="continua">Continua</string>
+    <string name="conferma">Conferma</string>
+    <string name="scegli_il_tuo_ruolo">Scegli il tuo ruolo</string>
+    <string name="gestore">Gestore</string>
+    <string name="utente">Utente</string>
+    <string name="user_explanation">SmartPark è un\'applicazione che aiuta a gestire il parcheggio in modo automatico. L\'applicazione utilizza una serie di tecnologie avanzate, come i Automatic License Plate Recognition, per offrire un\'esperienza di parcheggio facile e senza stress.</string>
+    <string name="admin_explanation">Per gestire la disponibilità dei posti auto, SmartPark API utilizza la tecnologia ALPR. Questa tecnologia permette ai gestori del parcheggio di rilevare la presenza o l\'assenza di un veicolo nel parcheggio, rendendo così possibile la gestione in tempo reale della disponibilità dei posti.</string>
+    <string name="inserisci_i_tuoi_dati">Inserisci i tuoi dati</string>
+    <string name="tua_targa">La tua targa</string>
+    <string name="telefono">Telefono</string>
+    <string name="parcheggi">Parcheggi</string>
+    <string name="auto">Auto</string>
+    <string name="pagamenti_mancanti">Pagamenti mancanti</string>
+    <string name="totale">Totale</string>
+    <string name="questo_mese">Questo mese</string>
+    <string name="ultimi_movimenti">Ultimi movimenti</string>
+    <string name="auto_online">Auto online</string>
+</resources>
