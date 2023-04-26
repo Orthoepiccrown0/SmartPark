@@ -2,6 +2,7 @@ package com.epiccrown.smartpark.view.admin.fragments
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.net.Uri
@@ -20,14 +21,19 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.epiccrown.smartpark.databinding.FragmentHomeAdminBinding
-import com.epiccrown.smartpark.model.ProcessDataRequest
-import com.epiccrown.smartpark.model.ProcessDataResponse
+import com.epiccrown.smartpark.model.request.ProcessDataRequest
+import com.epiccrown.smartpark.model.response.ProcessDataResponse
+import com.epiccrown.smartpark.repository.AdminRepository
 import com.epiccrown.smartpark.repository.network.NetworkResult
+import com.epiccrown.smartpark.utils.preferences.UserPreferences
+import com.epiccrown.smartpark.view.admin.AdminConfigurationActivity
 import com.epiccrown.smartpark.view.base.BaseFragment
 import id.zelory.compressor.Compressor
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +54,8 @@ class HomeFragment : BaseFragment() {
     private var photo: File? = null
     private var compressedBitmap: Bitmap? = null
 
+    private val vm: AdminViewModel by viewModels { AdminViewModel.Factory(AdminRepository()) }
+
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (it.all { it.value })
@@ -60,10 +68,55 @@ class HomeFragment : BaseFragment() {
         //todo: set error
     }
 
+    override fun CoroutineScope.start() {
+        launch {
+            vm.data.collect() {
+                when (it) {
+                    is NetworkResult.Loading -> {
+                        //todo: set loader
+                        showLoading()
+                    }
+
+                    is NetworkResult.Success -> {
+                        setResult(it.data)
+                    }
+
+                    is NetworkResult.Error -> {
+                        //todo: show error
+                        unlockShutter()
+                    }
+                }
+            }
+        }
+    }
+
     override fun setListeners() {
         binding.takePhoto.setOnClickListener {
             takePhoto()
         }
+
+        binding.configuration.setOnClickListener {
+            openConfiguration()
+        }
+    }
+
+    override fun prepareStage() {
+        val pf = UserPreferences(requireContext())
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            permissionLauncher.launch(REQUIRED_PERMISSIONS)
+        }
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
+        if(pf.getAdminConfiguration()==null){
+            openConfiguration()
+        }
+    }
+
+    private fun openConfiguration() {
+        startActivity(Intent(requireContext(), AdminConfigurationActivity::class.java))
     }
 
     private fun takePhoto() {
@@ -147,37 +200,6 @@ class HomeFragment : BaseFragment() {
                         }
                     } else {
                         //todo: show error
-                    }
-                }
-            }
-        }
-    }
-
-    override fun prepareStage() {
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            permissionLauncher.launch(REQUIRED_PERMISSIONS)
-        }
-
-        cameraExecutor = Executors.newSingleThreadExecutor()
-        awaitData()
-    }
-
-    private fun awaitData() {
-        vm.viewModelScope.launch {
-            vm.data.collect() {
-                when (it) {
-                    is NetworkResult.Loading -> {
-                        //todo: set loader
-                        showLoading()
-                    }
-                    is NetworkResult.Success -> {
-                        setResult(it.data)
-                    }
-                    is NetworkResult.Error -> {
-                        //todo: show error
-                        unlockShutter()
                     }
                 }
             }

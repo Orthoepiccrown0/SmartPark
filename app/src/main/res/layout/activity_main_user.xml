@@ -22,7 +22,7 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="@color/status_bar"
         app:itemIconTint="@color/menu_icon_color"
         app:itemTextColor="@color/menu_icon_color"
         app:layout_constraintBottom_toBottomOf="parent"

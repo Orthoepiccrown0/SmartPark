@@ -7,7 +7,7 @@ android {
     namespace 'com.epiccrown.smartpark'
     compileSdk 33
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     defaultConfig {
@@ -16,7 +16,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-        buildConfigField 'String', 'BASE_URL', '"http://10.0.2.2:5000/"'
+        buildConfigField 'String', 'BASE_URL', '"http://3.125.48.159:8080/"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,6 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+
         }
     }
     compileOptions {

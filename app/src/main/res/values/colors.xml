@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_70">#B3FFFFFF</color>
     <color name="background">#191919</color>
+    <color name="status_bar">#2e2e2e</color>
     <color name="action">#dbdee1</color>
     <color name="secondary">#1e1f22</color>
     <color name="background_dark">#1A1A1A</color>

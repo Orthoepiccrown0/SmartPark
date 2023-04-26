@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        style="@style/Subheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nome_parcheggio" />
+
+    <EditText
+        android:id="@+id/parkname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_edittext"
+        android:hint="@string/nome_del_tuo_parcheggio"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp" />
+
+    <TextView
+        style="@style/Subheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/numero_dei_lot" />
+
+    <EditText
+        android:id="@+id/lots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_edittext"
+        android:digits="0123456789"
+        android:hint="30"
+        android:inputType="number"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp" />
+
+    <TextView
+        style="@style/Subheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/prezzo_all_ora" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_edittext"
+        android:digits="0123456789."
+        android:hint="1.75"
+        android:inputType="number"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirm"
+        style="@style/Theme.Button.Green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/conferma" />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/annulla"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</LinearLayout>

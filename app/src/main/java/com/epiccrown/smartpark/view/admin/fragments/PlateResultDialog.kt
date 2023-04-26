@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.epiccrown.smartpark.R
 import com.epiccrown.smartpark.databinding.BottomDialogResultBinding
-import com.epiccrown.smartpark.model.ProcessDataResponse
+import com.epiccrown.smartpark.model.response.ProcessDataResponse
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

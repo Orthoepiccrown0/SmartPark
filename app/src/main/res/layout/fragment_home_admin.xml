@@ -4,6 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_bar"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/zone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zone"
+            android:textColor="@color/white_70"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/park"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Park"
+            android:textColor="@color/white_70"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <androidx.camera.view.PreviewView
         android:id="@+id/viewFinder"
         android:layout_width="match_parent"
@@ -12,10 +38,10 @@
         app:layout_constraintBottom_toTopOf="@id/actions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,29 +52,58 @@
         android:paddingVertical="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <LinearLayout
+            android:id="@+id/configuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:padding="8dp"
+                android:src="@drawable/baseline_admin_panel_settings_24"
+                app:tint="@color/green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/configurazione"
+                android:textColor="@color/white_70"
+                android:textSize="12sp" />
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="68dp"
             android:layout_height="68dp"
-            android:background="@drawable/background_circle_secondary">
+            android:background="@drawable/background_circle_secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/takePhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                app:tint="@color/action"
                 android:padding="10dp"
                 android:src="@drawable/camera_shutter"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:tint="@color/action" />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:indeterminate="true"
-                android:id="@+id/loading"
                 android:visibility="gone"
                 app:indicatorSize="50dp" />
         </RelativeLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

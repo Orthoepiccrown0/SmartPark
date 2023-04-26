@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.epiccrown.smartpark.databinding.FragmentWelcomeMessageBinding
 import com.epiccrown.smartpark.view.base.BaseFragment
+import kotlinx.coroutines.CoroutineScope
 
 class WelcomeMessage : BaseFragment() {
     private lateinit var binding: FragmentWelcomeMessageBinding
+    override fun CoroutineScope.start() {
+
+    }
 
     override fun setListeners() {
 

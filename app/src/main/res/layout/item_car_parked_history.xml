@@ -22,7 +22,7 @@
             android:backgroundTint="@color/red"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            android:text="Da pagare"
+            android:text="@string/da_pagare"
             android:textColor="@color/white"
             android:textSize="11sp" />
 

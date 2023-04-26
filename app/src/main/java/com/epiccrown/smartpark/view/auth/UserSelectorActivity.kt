@@ -14,15 +14,19 @@ import kotlinx.coroutines.CoroutineScope
 class UserSelectorActivity : BaseActivity() {
     private lateinit var binding: ActivityUserSelectorBinding
     private var selectedUser = UserType.ADMIN
-    private val pf =UserPreferences(this)
+    private val pf = UserPreferences(this)
     override fun CoroutineScope.observeStuff() {
 
     }
 
     override fun prepareStage() {
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.gestore).setTag(UserType.ADMIN))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.utente).setTag(UserType.USER))
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(R.string.gestore).setTag(UserType.ADMIN)
+        )
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(R.string.utente).setTag(UserType.USER)
+        )
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: Tab?) {
                 if (tab?.tag == UserType.ADMIN) {

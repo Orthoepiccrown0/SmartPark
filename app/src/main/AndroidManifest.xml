@@ -27,6 +27,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".view.admin.AdminConfigurationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.admin.AdminActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".view.auth.UserLoginActivity"
             android:exported="false" />
 

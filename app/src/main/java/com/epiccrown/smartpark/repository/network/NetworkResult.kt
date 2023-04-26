@@ -1,6 +1,6 @@
 package com.epiccrown.smartpark.repository.network
 
-import com.example.baseapp.model.ErrorResponse
+import com.epiccrown.smartpark.model.response.ErrorResponse
 
 sealed class NetworkResult<T>() {
 

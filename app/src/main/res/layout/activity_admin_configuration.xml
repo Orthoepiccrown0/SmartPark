@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/status_bar"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:id="@+id/back"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            app:tint="@color/white_70" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/Header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/benvenuto" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/Subheader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/seleziona_il_tuo_parcheggio" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <TextView
+            style="@style/Subheader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleziona la tua zona" />
+
+        <TextView
+            android:id="@+id/selected_zone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/drawable_combobox"
+            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+            android:drawableTint="@color/white_70"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:text="Seleziona..."
+            android:textColor="@color/white_70" />
+
+        <TextView
+            android:id="@+id/add_zone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_outlined_button"
+            android:drawableStart="@drawable/baseline_add_24"
+            android:drawableTint="@color/white_70"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:text="@string/crea_una_nuova_zona"
+            android:textAlignment="center"
+            android:textColor="@color/white_70" />
+
+        <TextView
+            style="@style/Subheader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/seleziona_il_tuo_parcheggio" />
+
+        <TextView
+            android:id="@+id/selected_park"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/drawable_combobox"
+            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+            android:drawableTint="@color/white_70"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:text="Seleziona..."
+            android:textColor="@color/white_70" />
+
+        <TextView
+            android:id="@+id/add_park"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_outlined_button"
+            android:drawableStart="@drawable/baseline_add_24"
+            android:drawableTint="@color/white_70"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp"
+            android:text="@string/crea_una_nuova_zona"
+            android:textAlignment="center"
+            android:textColor="@color/white_70" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirm"
+        style="@style/Theme.Button.Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/conferma"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
