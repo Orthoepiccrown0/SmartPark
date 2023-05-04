@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
@@ -7,50 +8,37 @@
     android:padding="16dp">
 
     <TextView
-        style="@style/Subheader"
+        android:id="@+id/title"
+        style="@style/Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nome_della_tua_zona" />
-
-    <EditText
-        android:id="@+id/zone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_edittext"
-        android:hint="@string/inserisci_il_nome_qui"
-        android:inputType="textCapSentences"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp" />
-
+        android:text="@string/nome_parcheggio" />
 
     <TextView
+        android:id="@+id/subtitle"
         style="@style/Subheader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/descrizione" />
+        android:text="@string/nome_parcheggio" />
 
-    <EditText
-        android:id="@+id/description"
+
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_edittext"
-        android:gravity="top"
-        android:hint="@string/la_descrizione_qui"
-        android:inputType="textMultiLine"
-        android:lines="3"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp" />
+        android:layout_height="400dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="@color/action"
+        android:choiceMode="singleChoice"
+        tools:listitem="@android:layout/simple_list_item_single_choice" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirm"
         style="@style/Theme.Button.Green"
         android:layout_width="match_parent"
-        android:enabled="false"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:enabled="false"
         android:text="@string/conferma" />
 
     <TextView

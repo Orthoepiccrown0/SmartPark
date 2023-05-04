@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/plate"
+                android:id="@+id/first_plate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -61,34 +61,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="4dp"
-                    android:src="@drawable/baseline_content_copy_24"
+                    android:rotation="-90"
+                    android:src="@drawable/baseline_keyboard_arrow_down_24"
                     app:tint="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/alternatives"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:id="@+id/second_plate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_plate_holder"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/resultPlate2Txt"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="Possibili risultati:"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/white" />
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="DT 749 WS"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/alternatives_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DT789SS"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/white" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="4dp"
+                    android:rotation="-90"
+                    android:src="@drawable/baseline_keyboard_arrow_down_24"
+                    app:tint="@color/white" />
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/retry"

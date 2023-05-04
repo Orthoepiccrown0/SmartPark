@@ -1,10 +1,11 @@
 package com.epiccrown.smartpark.model.internal
 
+import com.epiccrown.smartpark.model.response.AllZonesResponse
 import com.epiccrown.smartpark.model.response.AvailableZonesResponse
 
 data class AdminConfiguration(
-    val selectedZone: Zone,
-    val selectedPark: Park,
+    val selectedZone: AllZonesResponse.Zone,
+    val selectedPark: AllZonesResponse.Zone.Park,
 ) {
     data class Zone(
         val idZone: Int = 0,

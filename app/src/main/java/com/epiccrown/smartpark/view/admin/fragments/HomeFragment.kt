@@ -14,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -25,6 +27,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.epiccrown.smartpark.databinding.FragmentHomeAdminBinding
+import com.epiccrown.smartpark.model.internal.AdminConfiguration
 import com.epiccrown.smartpark.model.request.ProcessDataRequest
 import com.epiccrown.smartpark.model.response.ProcessDataResponse
 import com.epiccrown.smartpark.repository.AdminRepository
@@ -46,6 +49,7 @@ import java.util.concurrent.Executors
 
 
 class HomeFragment : BaseFragment() {
+    private lateinit var adminConfig: AdminConfiguration
     private lateinit var binding: FragmentHomeAdminBinding
     private lateinit var cameraExecutor: ExecutorService
 
@@ -55,6 +59,13 @@ class HomeFragment : BaseFragment() {
     private var compressedBitmap: Bitmap? = null
 
     private val vm: AdminViewModel by viewModels { AdminViewModel.Factory(AdminRepository()) }
+
+    private val configLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == AppCompatActivity.RESULT_OK)
+                prepareStage()
+        }
+
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -109,14 +120,22 @@ class HomeFragment : BaseFragment() {
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-        if(pf.getAdminConfiguration()==null){
+        val config = pf.getAdminConfiguration()
+        if (config == null) {
             openConfiguration()
+        } else {
+            setConfig(config)
         }
     }
 
+    private fun setConfig(config: AdminConfiguration) {
+        adminConfig = config
+        binding.zone.text = config.selectedZone.zoneName
+        binding.park.text = config.selectedPark.name
+    }
+
     private fun openConfiguration() {
-        startActivity(Intent(requireContext(), AdminConfigurationActivity::class.java))
+        configLauncher.launch(Intent(requireContext(), AdminConfigurationActivity::class.java))
     }
 
     private fun takePhoto() {
@@ -253,8 +272,9 @@ class HomeFragment : BaseFragment() {
     private fun setResult(data: ProcessDataResponse?) {
         unlockShutter()
         if (data != null && data.results.isNotEmpty()) {
-            PlateResultDialog(data, compressedBitmap)
-                .show(parentFragmentManager, null)
+            PlateResultDialog(data, compressedBitmap) {
+                Toast.makeText(requireContext(), "looking for $it", Toast.LENGTH_SHORT).show()
+            }.show(parentFragmentManager, null)
         } else {
             //todo: show error
         }

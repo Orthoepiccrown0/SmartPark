@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@drawable/background_edittext"
-        android:digits="0123456789"
+        android:digits="0123456789."
         android:hint="30"
         android:inputType="number"
         android:paddingHorizontal="8dp"

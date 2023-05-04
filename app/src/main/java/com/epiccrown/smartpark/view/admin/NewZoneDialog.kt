@@ -7,20 +7,16 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.epiccrown.smartpark.R
 import com.epiccrown.smartpark.databinding.SheetNewParkBinding
-import com.epiccrown.smartpark.model.request.AddParkRequest
+import com.epiccrown.smartpark.databinding.SheetNewZoneBinding
+import com.epiccrown.smartpark.model.request.AddZoneRequest
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.math.BigDecimal
 
-class NewParkDialog(
-    private val zoneId: Int,
-    val result: (AddParkRequest) -> Unit
-) : BottomSheetDialogFragment() {
+class NewZoneDialog(val result: (AddZoneRequest) -> Unit) : BottomSheetDialogFragment() {
 
-    private lateinit var binding: SheetNewParkBinding
+    private lateinit var binding: SheetNewZoneBinding
     private var name: String? = null
-    private var slots: Int? = null
-    private var minTime: Int = 5
-    private var price: BigDecimal? = null
+    private var description: String? = null
+
     override fun getTheme(): Int {
         return R.style.BaseBottomSheet
     }
@@ -29,28 +25,24 @@ class NewParkDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = SheetNewParkBinding.inflate(inflater, container, false)
+    ): View {
+        binding = SheetNewZoneBinding.inflate(inflater, container, false)
         setListeners()
         return binding.root
     }
 
     private fun setListeners() {
         binding.confirm.setOnClickListener {
-            result(AddParkRequest(zoneId, name!!, price!!, minTime, slots!!))
+            result(AddZoneRequest(name!!, description!!))
             dismiss()
         }
 
-        binding.parkname.addTextChangedListener {
+        binding.zone.addTextChangedListener {
             name = if (it.isNullOrBlank()) null else it.toString()
             checkData()
         }
-        binding.lots.addTextChangedListener {
-            slots = if (it.isNullOrBlank()) null else it.toString().toInt()
-            checkData()
-        }
-        binding.price.addTextChangedListener {
-            price = if (it.isNullOrBlank()) null else BigDecimal(it.toString())
+        binding.description.addTextChangedListener {
+            description = if (it.isNullOrBlank()) null else it.toString()
             checkData()
         }
     }
@@ -61,14 +53,10 @@ class NewParkDialog(
         if (name == null)
             isValid = false
 
-        if (slots == null)
-            isValid = false
-
-        if (price == null)
+        if (description == null)
             isValid = false
 
         binding.confirm.isEnabled = isValid
     }
-
 
 }

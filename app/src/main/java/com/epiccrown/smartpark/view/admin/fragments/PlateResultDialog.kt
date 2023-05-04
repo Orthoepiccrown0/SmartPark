@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.epiccrown.smartpark.R
 import com.epiccrown.smartpark.databinding.BottomDialogResultBinding
 import com.epiccrown.smartpark.model.response.ProcessDataResponse
@@ -16,10 +15,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class PlateResultDialog(val data: ProcessDataResponse, val bitmap: Bitmap?) :
+class PlateResultDialog(
+    val data: ProcessDataResponse,
+    val bitmap: Bitmap?,
+    val selectedPlate: (String?) -> Unit,
+) :
     BottomSheetDialogFragment() {
 
-    private var plateNumber: String? = null
+    private var firstPlate: String? = null
+    private var secondPlate: String? = null
     private lateinit var binding: BottomDialogResultBinding
     private val plateNumberRegex = "[A-Za-z]{2}\\d{3}[A-Za-z]{2}".toRegex()
     override fun getTheme(): Int {
@@ -38,14 +42,24 @@ class PlateResultDialog(val data: ProcessDataResponse, val bitmap: Bitmap?) :
     }
 
     private fun setListeners() {
-        binding.plate.setOnClickListener {
+        binding.firstPlate.setOnClickListener {
             val clipboard: ClipboardManager =
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("PlateFinder", plateNumber ?: "Not found")
+            val clip: ClipData = ClipData.newPlainText("PlateFinder", firstPlate ?: "Not found")
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(requireContext(), "La targa copiata negli apppunti", Toast.LENGTH_SHORT)
-                .show()
+            selectedPlate(firstPlate)
+            dismiss()
         }
+
+        binding.secondPlate.setOnClickListener {
+            val clipboard: ClipboardManager =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("PlateFinder", secondPlate ?: "Not found")
+            clipboard.setPrimaryClip(clip)
+            selectedPlate(secondPlate)
+            dismiss()
+        }
+
 
         binding.retry.setOnClickListener {
             dismiss()
@@ -53,19 +67,18 @@ class PlateResultDialog(val data: ProcessDataResponse, val bitmap: Bitmap?) :
     }
 
     private fun setData() {
-        plateNumber = findBest()
-        if (plateNumber != null) {
-            binding.resultPlateTxt.text = plateNumber
-            val candidatesBuilder = StringBuilder()
-            data.results.first().candidates.take(5).forEachIndexed { _, result ->
-                if (result.plate!=plateNumber && result.plate.matches(plateNumberRegex)) {
-                    candidatesBuilder.append("${result.plate}\n")
-                }
+        firstPlate = findBest()
+        if (firstPlate != null) {
+            binding.resultPlateTxt.text = firstPlate
+            if (data.results.first().candidates.isEmpty()) {
+                binding.secondPlate.visibility = View.GONE
+            } else {
+                secondPlate = data.results.first().candidates.first().plate
+                if (secondPlate!!.matches(plateNumberRegex) && secondPlate != firstPlate)
+                    binding.resultPlate2Txt.text = secondPlate
+                else
+                    binding.secondPlate.visibility = View.GONE
             }
-            if (candidatesBuilder.isNotEmpty())
-                binding.alternativesText.text = candidatesBuilder.toString()
-            else
-                binding.alternatives.visibility = View.GONE
 
             drawPlateRegion(data)
         } else {

@@ -49,4 +49,15 @@
     <string name="nome_della_tua_zona">Nome della tua zona</string>
     <string name="descrizione">Descrizione</string>
     <string name="scrivi_la_tua_descrizione">Scrivi la tua descrizione</string>
+    <string name="select_zone">Select your zone</string>
+    <string name="select_zone_subheader">You should select at least one elemnt</string>
+    <string name="select_park">Select your park</string>
+    <string name="select_park_subheader">You should choose your park</string>
+    <string name="seleziona">Seleziona...</string>
+    <string name="seleziona_la_tua_zona">Seleziona la tua zona</string>
+    <string name="crea_un_nuovo_park">Crea un nuovo parcheggio</string>
+    <string name="no_park">No park available, create a new one</string>
+    <string name="no_zone">No zone available, create a new one</string>
+    <string name="inserisci_il_nome_qui">Inserisci il nome qui</string>
+    <string name="la_descrizione_qui">La descrizione qui</string>
 </resources>
