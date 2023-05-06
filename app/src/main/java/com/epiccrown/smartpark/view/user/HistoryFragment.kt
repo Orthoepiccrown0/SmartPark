@@ -1,10 +1,12 @@
 package com.epiccrown.smartpark.view.user
 
+import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
@@ -35,6 +37,13 @@ class HistoryFragment : BaseFragment() {
             )
         )
     }
+
+    private val detailsLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                vm.getData()
+            }
+        }
 
     override fun CoroutineScope.start() {
         launch {
@@ -71,7 +80,8 @@ class HistoryFragment : BaseFragment() {
                 .sortedBy { it.data.carDateOut })
 
             val adapter = HistoryAdapter(history) {
-                //todo: show details
+                val details = PaymentDetailsActivity.getPaymentDetails(it)
+                detailsLauncher.launch(PaymentDetailsActivity.newIntent(requireContext(), details))
             }
 
             if (history.isNotEmpty()) {
@@ -115,7 +125,7 @@ class HistoryFragment : BaseFragment() {
 
     inner class HistoryAdapter(
         val data: ArrayList<HistoryItem>,
-        val open: (HistoryResponse.Payment) -> Unit
+        val open: (HistoryItem) -> Unit
     ) :
         RecyclerView.Adapter<HistoryAdapter.ItemHolder>() {
         private val red = ContextCompat.getColor(requireContext(), R.color.red)
@@ -133,7 +143,9 @@ class HistoryFragment : BaseFragment() {
                 binding.amount.text = "€ ${item.data.import}"
                 binding.inTime.text = item.data.carDateIn.fromServerDate("HH:mm")
                 binding.outTime.text = item.data.carDateOut.fromServerDate("HH:mm")
-
+                binding.root.setOnClickListener {
+                    open(item)
+                }
                 when (item.status) {
                     PaymentStatus.PENDING -> {
                         binding.paymentStatus.backgroundTintList = ColorStateList.valueOf(red)

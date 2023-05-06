@@ -34,6 +34,8 @@
             android:id="@+id/plate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:nextFocusDown="@id/phone"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/light_button"
@@ -72,10 +74,11 @@
 
             <EditText
                 android:id="@+id/phone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
+                android:maxLines="1"
                 android:background="@null"
                 android:digits="0123456789"
                 android:hint="333 555 7777"

@@ -9,9 +9,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 abstract class BaseActivity : AppCompatActivity() {
+    private val serverDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +37,26 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun launch(launchItem: suspend () -> Unit) {
         lifecycleScope.launch { launchItem() }
+    }
+
+    fun String.fromServerDate(desiredFormat: String): String {
+        val formatter = SimpleDateFormat(desiredFormat, Locale.getDefault())
+        val date = serverDateFormat.parse(this)
+        return try {
+            formatter.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "--"
+        }
+    }
+
+    fun String.fromServerDate(): Date {
+        return try {
+            serverDateFormat.parse(this)!!
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Date()
+        }
     }
 
     class Observer : DefaultLifecycleObserver {

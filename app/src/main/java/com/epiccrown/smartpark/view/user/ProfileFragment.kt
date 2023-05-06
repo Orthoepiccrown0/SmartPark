@@ -73,6 +73,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun setCars(cars: List<UserInfoResponse.Car>) {
+        binding.carsContainer.removeAllViews()
         if (cars.isNotEmpty()) {
             cars.forEachIndexed { index, car ->
                 val item = ItemUserCarBinding.inflate(layoutInflater, binding.carsContainer, true)
@@ -99,6 +100,7 @@ class ProfileFragment : BaseFragment() {
                     title = R.string.il_tuo_nuovo_veicolo,
                     subtitle = R.string.car_insert_disclaimer,
                     hint = R.string.tua_targa,
+                    uppercase = true,
                     maxLenght = 7,
                 ) {
                     if (it.length == 7) {

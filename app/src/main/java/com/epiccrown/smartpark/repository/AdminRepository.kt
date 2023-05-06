@@ -2,6 +2,7 @@ package com.epiccrown.smartpark.repository
 
 import com.epiccrown.smartpark.model.request.AddParkRequest
 import com.epiccrown.smartpark.model.request.AddZoneRequest
+import com.epiccrown.smartpark.model.request.CarRevealedRequest
 import com.epiccrown.smartpark.model.request.ProcessDataRequest
 import com.epiccrown.smartpark.model.response.AllZonesResponse
 import com.epiccrown.smartpark.model.response.ProcessDataResponse
@@ -31,6 +32,10 @@ class AdminRepository() : BaseRepository.Unauthenticated("api/") {
         return safeApiCall { service.addZone(request) }
     }
 
+    suspend fun carRevealed(request: CarRevealedRequest):NetworkResult<SuccessResponse>{
+        return safeApiCall { service.carRevealed(request) }
+    }
+
     interface AdminService {
         @POST("process-data")
         suspend fun processData(@Body request: ProcessDataRequest): Response<ProcessDataResponse>
@@ -43,6 +48,9 @@ class AdminRepository() : BaseRepository.Unauthenticated("api/") {
 
         @POST("addZone")
         suspend fun addZone(@Body request: AddZoneRequest): Response<SuccessResponse>
+
+        @POST("addLotWithCar")
+        suspend fun carRevealed(@Body request: CarRevealedRequest): Response<SuccessResponse>
 
     }
 }

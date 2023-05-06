@@ -5,8 +5,8 @@ data class HomeResponse(
     val availablePayments: List<AvailablePayment> = listOf(),
     val lastTransactions: List<LastTransaction> = listOf(),
     val otherInfo: OtherInfo = OtherInfo(),
-    val spentThisMonth: String = "0.0",
-    val totalSpent: String = "0.0"
+    val spentThisMonth: Double = 0.0,
+    val totalSpent: Double = 0.0
 ) {
     data class ActiveCar(
         val enterTimestamp: String = "",

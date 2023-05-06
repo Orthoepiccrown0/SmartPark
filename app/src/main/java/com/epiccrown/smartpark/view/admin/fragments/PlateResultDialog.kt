@@ -18,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class PlateResultDialog(
     val data: ProcessDataResponse,
     val bitmap: Bitmap?,
-    val selectedPlate: (String?) -> Unit,
+    val selectedPlate: (String) -> Unit,
 ) :
     BottomSheetDialogFragment() {
 
@@ -43,20 +43,22 @@ class PlateResultDialog(
 
     private fun setListeners() {
         binding.firstPlate.setOnClickListener {
-            val clipboard: ClipboardManager =
-                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("PlateFinder", firstPlate ?: "Not found")
-            clipboard.setPrimaryClip(clip)
-            selectedPlate(firstPlate)
+//            val clipboard: ClipboardManager =
+//                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip: ClipData = ClipData.newPlainText("PlateFinder", firstPlate ?: "Not found")
+//            clipboard.setPrimaryClip(clip)
+            if (firstPlate != null)
+                selectedPlate(firstPlate!!)
             dismiss()
         }
 
         binding.secondPlate.setOnClickListener {
-            val clipboard: ClipboardManager =
-                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("PlateFinder", secondPlate ?: "Not found")
-            clipboard.setPrimaryClip(clip)
-            selectedPlate(secondPlate)
+//            val clipboard: ClipboardManager =
+//                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip: ClipData = ClipData.newPlainText("PlateFinder", secondPlate ?: "Not found")
+//            clipboard.setPrimaryClip(clip)
+            if (secondPlate != null)
+                selectedPlate(secondPlate!!)
             dismiss()
         }
 

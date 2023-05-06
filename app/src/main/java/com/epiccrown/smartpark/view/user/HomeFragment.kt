@@ -87,14 +87,14 @@ class HomeFragment : BaseFragment() {
             }
 
             if (data.lastTransactions.isNotEmpty()) {
-                binding.carsOnlineLayout.visibility = View.VISIBLE
+                binding.lastTransactionLayout.visibility = View.VISIBLE
                 setTransactions(data.lastTransactions)
             } else {
-                binding.carsOnlineLayout.visibility = View.GONE
+                binding.lastTransactionLayout.visibility = View.GONE
             }
 
-            binding.totalSpent.text = "€ ${decimalFormatter.parse(data.totalSpent)}"
-            binding.monthlySpent.text = "€ ${decimalFormatter.parse(data.spentThisMonth)}"
+            binding.totalSpent.text = "€ ${decimalFormatter.format(data.totalSpent)}"
+            binding.monthlySpent.text = "€ ${decimalFormatter.format(data.spentThisMonth)}"
         }
     }
 

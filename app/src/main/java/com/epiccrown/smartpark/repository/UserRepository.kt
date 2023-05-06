@@ -2,6 +2,7 @@ package com.epiccrown.smartpark.repository
 
 import android.content.Context
 import com.epiccrown.smartpark.model.request.AddCarRequest
+import com.epiccrown.smartpark.model.request.SuccessPaymentRequest
 import com.epiccrown.smartpark.model.response.ErrorResponse
 import com.epiccrown.smartpark.model.response.HistoryResponse
 import com.epiccrown.smartpark.model.response.HomeResponse
@@ -29,6 +30,9 @@ class UserRepository(context: Context) : BaseRepository.Authenticated(context, "
         return safeApiCall { service.getPaymentHistory() }
     }
 
+    suspend fun successPayment(request: SuccessPaymentRequest): NetworkResult<SuccessResponse> {
+        return safeApiCall { service.successPayment(request) }
+    }
     suspend fun addCar(plate: String): NetworkResult<SuccessResponse> {
         if (context == null)
             return NetworkResult.Error(ErrorResponse.getGeneric())
@@ -50,5 +54,8 @@ class UserRepository(context: Context) : BaseRepository.Authenticated(context, "
 
         @POST("addCar")
         suspend fun addCar(@Body request: AddCarRequest): Response<SuccessResponse>
+
+        @POST("successPayment")
+        suspend fun successPayment(@Body request: SuccessPaymentRequest): Response<SuccessResponse>
     }
 }

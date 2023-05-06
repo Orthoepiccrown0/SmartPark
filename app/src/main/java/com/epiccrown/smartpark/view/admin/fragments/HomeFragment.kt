@@ -28,16 +28,25 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.epiccrown.smartpark.databinding.FragmentHomeAdminBinding
 import com.epiccrown.smartpark.model.internal.AdminConfiguration
+import com.epiccrown.smartpark.model.request.CarRevealedRequest
 import com.epiccrown.smartpark.model.request.ProcessDataRequest
 import com.epiccrown.smartpark.model.response.ProcessDataResponse
+import com.epiccrown.smartpark.model.response.SuccessResponse
 import com.epiccrown.smartpark.repository.AdminRepository
 import com.epiccrown.smartpark.repository.network.NetworkResult
 import com.epiccrown.smartpark.utils.preferences.UserPreferences
+import com.epiccrown.smartpark.view.GenericErrorDialog
+import com.epiccrown.smartpark.view.MainActivity
 import com.epiccrown.smartpark.view.admin.AdminConfigurationActivity
+import com.epiccrown.smartpark.view.admin.dialogs.InfoDebitDialog
+import com.epiccrown.smartpark.view.admin.dialogs.InfoNoAccountDialog
+import com.epiccrown.smartpark.view.admin.dialogs.InfoSuccessDialog
 import com.epiccrown.smartpark.view.base.BaseFragment
+import com.epiccrown.smartpark.view.common.LoadingDialog
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -49,6 +58,8 @@ import java.util.concurrent.Executors
 
 
 class HomeFragment : BaseFragment() {
+    private lateinit var loading: LoadingDialog
+    private lateinit var pf: UserPreferences
     private lateinit var adminConfig: AdminConfiguration
     private lateinit var binding: FragmentHomeAdminBinding
     private lateinit var cameraExecutor: ExecutorService
@@ -103,16 +114,26 @@ class HomeFragment : BaseFragment() {
 
     override fun setListeners() {
         binding.takePhoto.setOnClickListener {
-            takePhoto()
+            if (pf.getAdminConfiguration() != null)
+                takePhoto()
+            else
+                openConfiguration()
         }
 
         binding.configuration.setOnClickListener {
             openConfiguration()
         }
+
+        binding.logout.setOnClickListener {
+            pf.clear()
+            startActivity(Intent(requireContext(), MainActivity::class.java))
+            activity?.finish()
+        }
     }
 
     override fun prepareStage() {
-        val pf = UserPreferences(requireContext())
+        loading = LoadingDialog(requireContext())
+        pf = UserPreferences(requireContext())
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -273,10 +294,62 @@ class HomeFragment : BaseFragment() {
         unlockShutter()
         if (data != null && data.results.isNotEmpty()) {
             PlateResultDialog(data, compressedBitmap) {
-                Toast.makeText(requireContext(), "looking for $it", Toast.LENGTH_SHORT).show()
+                val config = pf.getAdminConfiguration()
+                if (config != null)
+                    checkCar(config.selectedPark.idPark, it)
+
             }.show(parentFragmentManager, null)
         } else {
             //todo: show error
+        }
+    }
+
+    private fun checkCar(idPark: Int, carPlate: String) {
+        val request = CarRevealedRequest(idPark, carPlate)
+        viewLifecycleOwner.lifecycleScope.launch {
+            vm.carRevealed(request).collect() {
+                when (it) {
+                    is NetworkResult.Loading -> {
+                        loading.show()
+                    }
+
+                    is NetworkResult.Success -> {
+                        loading.dismiss()
+                        showCarRevealedResult(it.data)
+                    }
+
+                    is NetworkResult.Error -> {
+                        loading.dismiss()
+                        //todo: show error
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showCarRevealedResult(data: SuccessResponse?) {
+//        # BE001 => car plate with idUser already exists
+//        # BE002 => when adding a new car: plate with idUser already exists
+//        # BE003 => car balance is not 0, car can't enter.
+//        # BE004 => car can enter, but the user should register.
+
+        if (data != null) {
+            if (data.success && data.code == null) {
+                InfoSuccessDialog().show(parentFragmentManager, null)
+            } else if (data.code == "BE004") {
+                InfoNoAccountDialog().show(parentFragmentManager, null)
+            } else if (data.code != null) {
+                when (data.code) {
+                    "BE003" -> {
+                        InfoDebitDialog().show(parentFragmentManager, null)
+
+                    }
+
+                    else -> {
+                        GenericErrorDialog().show(parentFragmentManager, null)
+                    }
+                }
+            }
         }
     }
 

@@ -5,7 +5,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.InputFilter
+import android.text.InputType
 import android.view.LayoutInflater
+import android.widget.EditText
 import com.epiccrown.smartpark.databinding.DialogTextInputBinding
 
 object TextInputDialog {
@@ -14,6 +16,7 @@ object TextInputDialog {
         title: Int,
         subtitle: Int,
         maxLenght: Int = -1,
+        uppercase: Boolean = false,
         hint: Int,
         result: (String) -> Unit
     ) {
@@ -23,7 +26,8 @@ object TextInputDialog {
         binding.subtitle.text = context.getString(subtitle)
         if (maxLenght != -1)
             binding.input.filters = arrayOf(InputFilter.LengthFilter(maxLenght))
-
+        if (uppercase)
+            binding.input.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
         val dialog = AlertDialog.Builder(context)
             .setView(binding.root)
             .create()

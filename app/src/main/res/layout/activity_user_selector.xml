@@ -24,7 +24,7 @@
             android:text="@string/scegli_il_tuo_ruolo"
             android:textAlignment="center" />
 
-        <com.google.android.material.tabs.TabLayout
+        <LinearLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,11 +32,37 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/user_selector_background"
+            android:orientation="horizontal"
             android:padding="8dp"
             app:tabBackground="@drawable/user_selector_item"
             app:tabIndicator="@null"
             app:tabRippleColor="@null"
-            app:tabTextColor="@color/white" />
+            app:tabTextColor="@color/white">
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/admin"
+                style="@style/Theme.CheckableText.Green"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:checkMark="@null"
+                android:padding="16dp"
+                android:text="@string/gestore"
+                android:textAlignment="center" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/user"
+                style="@style/Theme.CheckableText.Green"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:checkMark="@null"
+                android:layout_weight="1"
+                android:checked="false"
+                android:padding="16dp"
+                android:text="@string/utente"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/user_layout"

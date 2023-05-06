@@ -60,4 +60,14 @@
     <string name="no_zone">No zone available, create a new one</string>
     <string name="inserisci_il_nome_qui">Inserisci il nome qui</string>
     <string name="la_descrizione_qui">La descrizione qui</string>
+    <string name="info">Info</string>
+    <string name="operazione_ok">Operazione andata a buon fine</string>
+    <string name="nessun_account_collegato">Nessun account collegato</string>
+    <string name="nessun_account_disclaimer">Per utilizzare correttamente il servizio, è necessario creare un account. Ciò è obbligatorio poiché l\'account fornisce un modo per autenticare e verificare l\'identità dell\'utente.</string>
+    <string name="car_debit">Veicolo non autorizzato</string>
+    <string name="car_debit_disclaimer">Al momento, il proprietario del veicolo non ha saldato il debito e, pertanto, non può essere autorizzato ad entrare nel parcheggio fino a quando non verrà effettuato il pagamento completo.</string>
+    <string name="errore_generico">Errore generico</string>
+    <string name="generic_error_disclaimer">Ci dispiace molto, ma si è verificato un errore generico durante l\'esecuzione della tua richiesta. Ti preghiamo di riprovare più tardi. Ti ringraziamo per la tua pazienza e comprensione, e ci scusiamo per qualsiasi inconveniente causato.</string>
+    <string name="payment_details">Payment details</string>
+    <string name="paga">"Paga %1$s"</string>
 </resources>

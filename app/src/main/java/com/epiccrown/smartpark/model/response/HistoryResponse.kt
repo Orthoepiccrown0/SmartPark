@@ -6,6 +6,7 @@ data class HistoryResponse(
     val succeedPayments: List<Payment> = listOf()
 ) {
     data class Payment(
+        val idPendingPayment: String? = null,
         val carDateIn: String = "",
         val carDateOut: String = "",
         val `import`: String = "",

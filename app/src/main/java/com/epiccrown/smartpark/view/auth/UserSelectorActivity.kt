@@ -20,36 +20,22 @@ class UserSelectorActivity : BaseActivity() {
     }
 
     override fun prepareStage() {
+        binding.admin.isSelected = true
+        binding.user.setOnClickListener {
+            it.isSelected = true
+            binding.admin.isSelected = false
+            selectedUser = UserType.USER
+            binding.userLayout.visibility = View.VISIBLE
+            binding.adminLayout.visibility = View.GONE
+        }
 
-        binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(R.string.gestore).setTag(UserType.ADMIN)
-        )
-        binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(R.string.utente).setTag(UserType.USER)
-        )
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: Tab?) {
-                if (tab?.tag == UserType.ADMIN) {
-                    binding.userLayout.visibility = View.GONE
-                    binding.adminLayout.visibility = View.VISIBLE
-                } else {
-                    binding.userLayout.visibility = View.VISIBLE
-                    binding.adminLayout.visibility = View.GONE
-                }
-                if (tab != null) {
-                    selectedUser = tab.tag as UserType
-                }
-            }
-
-            override fun onTabUnselected(tab: Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: Tab?) {
-
-            }
-
-        })
+        binding.admin.setOnClickListener {
+            it.isSelected = true
+            binding.user.isSelected = false
+            selectedUser = UserType.ADMIN
+            binding.userLayout.visibility = View.GONE
+            binding.adminLayout.visibility = View.VISIBLE
+        }
     }
 
     override fun setListeners() {
