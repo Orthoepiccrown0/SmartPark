@@ -24,6 +24,10 @@ When drivers arrive at the parking lot, the app will use OCR technology to recog
 
 We welcome contributions to SmartPark! If you would like to contribute, please fork the repository and submit a pull request. We are also open to suggestions and feedback on how to improve the app.
 
+## Licence
+
+SmartPark is licensed under the MIT License. See the LICENSE file for more information.
+
 ##Contact
 
 If you have any questions or comments about SmartPark, please contact us at [dmitro98.98@gmail.com](mailto:dmitro98.98@gmail.com)
