@@ -37,17 +37,17 @@ class HostActivity : AppCompatActivity() {
             WelcomeScreenContainer(
                 R.string.app_name,
                 R.drawable.welcome_1,
-                R.string.app_name
+                R.string.benvenuto_1
             ),
             WelcomeScreenContainer(
                 R.string.app_name,
-                R.drawable.welcome_1,
-                R.string.app_name
+                R.drawable.welcome_2,
+                R.string.benvenuto_2
             ),
             WelcomeScreenContainer(
                 R.string.app_name,
-                R.drawable.welcome_1,
-                R.string.app_name
+                R.drawable.welcome_3,
+                R.string.benvenuto_3
             )
         )
 
